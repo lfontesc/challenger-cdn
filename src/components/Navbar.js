@@ -11,14 +11,13 @@ const Navbar = (props) => (
             <input
                 value={this.searchString}
                 ref={input => this.search = input}
-                onChange={props.updateQuery(this.value)}
+                onChange={props.updateQuery}
                 className="form-control col-9 mr-2"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
             />
         </div>
-        <p>{props.query}</p>
     </nav>
 )
 

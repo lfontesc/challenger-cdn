@@ -18,6 +18,12 @@ class App extends Component {
     });
   };
 
+  clearQuery = () => {
+    this.setState({
+      query: ''
+    })
+}
+
   render() { 
     
     console.log(this.state.query);
@@ -26,7 +32,7 @@ class App extends Component {
     
     const showingRecipes = query === ''
           ? this.recipes
-          : this.recipes.filter((c,) => (
+          : this.recipes.filter((c) => (
             c.title.toLowerCase().includes(query.toLowerCase()) 
         
           ))
@@ -35,22 +41,44 @@ class App extends Component {
     return (
       
       <div className="App">
-        <Navbar result={recipes}
-        query={this.state.query}
-        searchString={this.state.searchString}
-        updateQuery={this.handleChange}
-        />
-        <div className="container mt-10">
-          <div className="row">
-          {this.recipes.map(result => (
-            <RecipeItem
-            key={result.title}
-            title={result.title}
-            ingredients={result.ingredients}
-            thumbnail={result.thumbnail}
-            href={result.href}
-            />
-          ))}
+          <Navbar result={recipes}
+            query={this.state.query}
+            searchString={this.state.searchString}
+            updateQuery={this.handleChange}
+          />
+      
+      <div className="container mt-10">
+        <div className="row">
+            {this.state.query === '' ? (this.recipes.map(result => (
+              <RecipeItem
+                key={result.title}
+                title={result.title}
+                ingredients={result.ingredients}
+                thumbnail={result.thumbnail}
+                href={result.href}
+              />
+            ))):(
+            showingRecipes.length !== this.recipes.length && (
+              <div>
+                <div className='showing-recipes'>
+                  <span>Now showing {showingRecipes.length} of {this.recipes.length} recipes</span>
+                  <button onClick={this.clearQuery}>Show all</button> 
+                </div>
+
+                <ol className="recipes-grid">
+                {showingRecipes.map(result => (
+                      <RecipeItem
+                      key={result.title}
+                      title={result.title}
+                      ingredients={result.ingredients}
+                      thumbnail={result.thumbnail}
+                      href={result.href}
+                      />
+                ))}
+                </ol>
+              </div>
+          )
+          )}
           </div>
         </div>
       </div>

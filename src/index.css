@@ -27,3 +27,29 @@ mark {
 .Navbar-logo {
   height: 3rem;
 }
+
+.showing-recipes {
+  text-align: center;
+  margin: 20px 0;
+}
+.showing-recipes button {
+  color: blue;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+.recipes-grid {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.recipes-grid li {
+  padding: 10px 15px;
+  text-align: left;
+}

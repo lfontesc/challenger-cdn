@@ -24,6 +24,16 @@ class App extends Component {
     })
 }
 
+getHighlightedText(text, higlight) {
+  // Split on higlight term and include term into parts, ignore case
+  let parts = text.split(new RegExp(`(${higlight})`, 'gi'));
+  return <span> { parts.map((part, i) => 
+      <span key={i} style={part.toLowerCase() === higlight.toLowerCase() ? { fontWeight: 'bold' } : {} }>
+          { part }
+      </span>)
+  } </span>;
+}
+
   render() { 
     
     console.log(this.state.query);
@@ -33,10 +43,10 @@ class App extends Component {
     const showingRecipes = query === ''
           ? this.recipes
           : this.recipes.filter((c) => (
-            c.title.toLowerCase().includes(query.toLowerCase()) 
+            (c.title.toLowerCase() && c.ingredients.toLowerCase()).includes(query.toLowerCase()) 
         
           ))
-
+      //     const teste1 = this.getHighlightedText(showingRecipes.title, query)
     console.log(showingRecipes)
     return (
       
@@ -56,6 +66,7 @@ class App extends Component {
                 ingredients={result.ingredients}
                 thumbnail={result.thumbnail}
                 href={result.href}
+                query={this.state.query}
               />
             ))):(
             showingRecipes.length !== this.recipes.length && (
